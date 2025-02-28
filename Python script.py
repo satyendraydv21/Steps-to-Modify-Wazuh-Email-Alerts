@@ -1,4 +1,74 @@
+#Commands: -  sudo nano /var/ossec/etc/ossec.conf
+#Find the <integration> section in the ossec.conf file. This is where you configure the general settings for email alerts.
+# Configuration example:
+# <integration>
+#       <name>custom-email-alerts</name>
+#       <hook_url>emailrecipient@example.com</hook_url>
+#       <group>attacks</group>
+#       <alert_format>json</alert_format>
+#   </integration>
+# 2. Adding the integration script to the manager.
+# •	Add the following Python script as /var/ossec/integrations/custom-email.py in the manager:
+# Run this Commands to create: - nano /var/ossec/integrations/custom-email.py 
+# •	Set the correct permissions and ownership to the integration script:
+# Use the following commands:
+# chown root:wazuh /var/ossec/integrations/custom-email.py 
+# chmod 750 /var/ossec/integrations/custom-email.py
+
 #Python script: -
+
+import imaplib
+import email
+from email.header import decode_header
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
+import socket
+import re
+from datetime import datetime
+
+# Your email credentials
+username = "stymzp@gmail.com"
+password = "olwxbkbaxawhyohg"  # Use App Password if Two-Factor Authentication is enabled
+
+# Connect to your email server using IMAP
+mail = imaplib.IMAP4_SSL("imap.gmail.com")
+mail.login(username, password)
+
+# Select the inbox to search
+mail.select("inbox")
+
+# Search for emails with the specific subject or from a certain sender
+status, messages = mail.search(None, '(FROM "stymzp@gmail.com")')
+
+# Get the list of email IDs
+email_ids = messages[0].split()
+
+# Function to extract the agent name from the email body
+def extract_agent_name(body):
+    agent_pattern = r"Received From: \((.*?)\)"  # Extract text inside parentheses after "Received From: "
+    match = re.search(agent_pattern, body)
+    if match:
+        return match.group(1)
+    return "Unknown Agent"
+
+# Function to extract the alert name (rule description)
+def extract_alert_name(body):
+    alert_pattern = r"Rule: \d+\s+fired \([^\)]+\)\s+->\s+\"([^\"]+)\""  # Match the description after "Rule: <number> fired"
+    match = re.search(alert_pattern, body)
+    if match:
+        return match.group(1)
+    return "Unknown Alert"
+
+# Function to extract the agent's IP address dynamically from the logs
+def extract_agent_ip(body):
+    # New pattern for agent IP to match various possible formats of the IP address
+    ip_pattern = r"(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})"  # Matches a standard IPv4 address (e.g., 192.168.1.1)
+    match = re.search(ip_pattern, body)
+    if match:
+        return match.group(1)
+    return "N/A"
+
 # Function to extract the rule level dynamically from the body
 def extract_rule_level(body):
     # Extract rule level after "Rule: <number> fired (level <rule_level>)"
@@ -70,7 +140,7 @@ for email_id in email_ids:
             <html>
             <body>
                 <p><strong>SQ1</strong><br>
-                We detected a threat on the following device. To know more about the threat and the remedial action taken, please c>
+                We detected a threat on the following device. To know more about the threat and the remedial action taken, please check the report below:<br><br>
                 <strong>Device Name:</strong> {agent_name} ({agent_ip})<br>
 
                 <table>
@@ -108,4 +178,4 @@ for email_id in email_ids:
                     server.sendmail(new_sender_email, new_receiver_email, new_msg.as_string())
                     print("Modified email sent!")
             except Exception as e:
-                print(f"Failed to send modified email: {e}") 
+                print(f"Failed to send modified email: {e}")
