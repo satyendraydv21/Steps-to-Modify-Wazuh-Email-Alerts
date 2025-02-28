@@ -28,8 +28,8 @@ import re
 from datetime import datetime
 
 # Your email credentials
-username = "stymzp@gmail.com"
-password = "olwxbkbaxawhyohg"  # Use App Password if Two-Factor Authentication is enabled
+username = "xyz@gmail.com"
+password = "useyour-gmail-app-password"  # Use App Password if Two-Factor Authentication is enabled
 
 # Connect to your email server using IMAP
 mail = imaplib.IMAP4_SSL("imap.gmail.com")
