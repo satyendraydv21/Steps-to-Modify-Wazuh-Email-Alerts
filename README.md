@@ -101,6 +101,6 @@ chmod 750 /var/ossec/integrations/custom-email.py
 
 Now paste python script in /var/ossec/integrations/custom-email.py 
 
-For Python script go to Github link: - [https://github.com/satyendraydv21/Steps-to-Modify-Wazuh-Email-Alerts/blob/main/Python%20script.py](url)
+For Python script go to Github link: - [https://github.com/satyendraydv21/Steps-to-Modify-Wazuh-Email-Alerts/blob/9b7010ed2cb478c9553a3836a66a9f8361bc70c5/Python%20script.py](url)
 Save it and restart wazuh -manager
 Now we will receive email alerts.
