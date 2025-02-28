@@ -160,7 +160,7 @@ for email_id in email_ids:
             # Now send the modified email to a new recipient or forward it
             new_sender_email = "xyz@gmail.com"
             new_receiver_email = "xyz@gmail.com"
-            smtp_password = "olwxbkbaxawhyohg"  # Ensure this is your App Password if 2FA is enabled
+            smtp_password = "use-your-gmailapp-password"  # Ensure this is your App Password if 2FA is enabled
 
             # Create new email with modified subject and body
             new_msg = MIMEMultipart()
