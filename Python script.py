@@ -39,7 +39,7 @@ mail.login(username, password)
 mail.select("inbox")
 
 # Search for emails with the specific subject or from a certain sender
-status, messages = mail.search(None, '(FROM "stymzp@gmail.com")')
+status, messages = mail.search(None, '(FROM "xyz@gmail.com")')
 
 # Get the list of email IDs
 email_ids = messages[0].split()
