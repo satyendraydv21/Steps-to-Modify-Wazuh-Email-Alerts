@@ -6,21 +6,21 @@ Before you can set up Wazuh email alerts, ensure you have an SMTP mail server to
 •	Postfix (Linux)
 Follow the instructions below to set up Wazuh to send email alerts 
 •	1. Install postfix
-Command: -    apt-get install postfix mailutils libsasl2-2 ca-certificates libsasl2-modules
+Command: -    #apt-get install postfix mailutils libsasl2-2 ca-certificates libsasl2-modules
 •	while installing give no configuration.
 Command: - cp /usr/share/postfix/main.cf.debian /etc/postfix/main.cf 
 •	3. Now, the configuration file /etc/postfix/main.cf must be edited with the mail server information:
    Go to /etc/postfix/main.cf
-Command: -  nano /etc/postfix/main.cf
+Command: -  #nano /etc/postfix/main.cf
 •	2. Paste the following lines at the end
-
+All commands : -
    relayhost = [smtp.gmail.com]:587
-   smtp_sasl_auth_enable = yes
-   smtp_sasl_password_maps = hash:/etc/postfix/sasl_passwd
-   smtp_sasl_security_options = noanonymous
-   smtp_tls_CAfile = /etc/ssl/certs/thawte_Primary_Root_CA.pem
-   smtp_use_tls = yes
-   compatibility_level = 2
+   #smtp_sasl_auth_enable = yes
+   #smtp_sasl_password_maps = hash:/etc/postfix/sasl_passwd
+   #smtp_sasl_security_options = noanonymous
+   #smtp_tls_CAfile = /etc/ssl/certs/thawte_Primary_Root_CA.pem
+   #smtp_use_tls = yes
+   #compatibility_level = 2
 •	3. Once the configuration file has been modified and saved, the next commands are run (Run all command without #)
 •	Run the following commands to configure credentials (replace USERNAMEby your google username and PASSWORD by the App password): -
 •	Runn all command but replace your username and password
