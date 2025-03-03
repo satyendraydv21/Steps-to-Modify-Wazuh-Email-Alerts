@@ -37,7 +37,7 @@ All commands : -
    # postmap /etc/postfix/sasl_passwd
    # postconf -e "smtp_tls_CAfile = /etc/ssl/certs/ca-certificates.crt"
    # systemctl restart postfix
-   # echo "Test email" | mail -s "Test" msguhan5447@gmail.com
+   # echo "Test email" | mail -s "Test" xyz@gmail.com
 •	6. now configure on wazuh server 
 Commands: - # nano /var/ossec/etc/ossec.conf 
 •	7. Alter the modification as shown below.
