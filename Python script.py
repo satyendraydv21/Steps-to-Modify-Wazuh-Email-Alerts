@@ -1,13 +1,5 @@
 #Commands: -  sudo nano /var/ossec/etc/ossec.conf
-#Find the <integration> section in the ossec.conf file. This is where you configure the general settings for email alerts.
-# Configuration example:
-# <integration>
-#       <name>custom-email-alerts</name>
-#       <hook_url>emailrecipient@example.com</hook_url>
-#       <group>attacks</group>
-#       <alert_format>json</alert_format>
-#   </integration>
-# 2. Adding the integration script to the manager.
+# 1. Adding the integration script to the manager.
 # •	Add the following Python script as /var/ossec/integrations/custom-email.py in the manager:
 # Run this Commands to create: - nano /var/ossec/integrations/custom-email.py 
 # •	Set the correct permissions and ownership to the integration script:
