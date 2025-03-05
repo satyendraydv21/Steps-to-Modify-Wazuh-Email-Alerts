@@ -80,15 +80,7 @@ Edit the ossec.conf File:
 •	Open the main Wazuh configuration file ossec.conf in a text editor.
 •	This file is located in the /var/ossec/etc/ directory:
 Commands: -  sudo nano /var/ossec/etc/ossec.conf
-Find the <integration> section in the ossec.conf file. This is where you configure the general settings for email alerts.
-# Configuration example:
-<integration>
-      <name>custom-email-alerts</name>
-      <hook_url>emailrecipient@example.com</hook_url>
-      <group>attacks</group>
-      <alert_format>json</alert_format>
-  </integration>
-2. Adding the integration script to the manager.
+1. Adding the integration script to the manager.
 •	Add the following Python script as /var/ossec/integrations/custom-email.py in the manager:
 Run this Commands to create: - nano /var/ossec/integrations/custom-email.py 
 •	Set the correct permissions and ownership to the integration script:
@@ -97,10 +89,15 @@ chown root:wazuh /var/ossec/integrations/custom-email.py
 chmod 750 /var/ossec/integrations/custom-email.py
 
 
-
-
 Now paste python script in /var/ossec/integrations/custom-email.py 
 
 For Python script go to Github link: - https://github.com/satyendraydv21/Steps-to-Modify-Wazuh-Email-Alerts/blob/main/Python%20script.py
 Save it and restart wazuh -manager
 Now we will receive email alerts.
+Now to manually run a python Script: - 
+Command- sudo /usr/bin/python3 /var/ossec/integrations/custom-email.py
+To set a cronjob edit cronjob - crontab -e
+And then paste this command to run every five minutes.
+  Command - */5 * * * * /usr/bin/python3 /var/ossec/integrations/custom-email.py
+
+
